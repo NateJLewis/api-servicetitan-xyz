@@ -23,7 +23,7 @@ export default () => {
 
 	router.use((req, res, next) => {
 		log(`${req.method} @ api ${req.path}`)
-  	next()
+		next()
 	})
 
 	router.route('/jobs/:id/tag')
@@ -31,23 +31,23 @@ export default () => {
 			let srvcttn = new Srvcttn(seed)
 
 			srvcttn
-	      .login(req.headers['x-http-servicetitan-username'], req.headers['x-http-servicetitan-password'])
-	      .then((state) => {
+			.login(req.headers['x-http-servicetitan-username'], req.headers['x-http-servicetitan-password'])
+				.then(() => {
 					srvcttn.job(req.params.id)
-	          .addTag(req.body.data.tag)
-	          .then(() => {
+					.addTag(req.body.data.tag)
+						.then(() => {
 							srvcttn.kill()
 							log(`tag ${req.body.data.tag} added to job ${req.params.id}`)
 							res.sendStatus(200)
-	          })
+						})
 						.catch(() => res.sendStatus(500))
-	      })
+				})
 				.catch(() => res.sendStatus(500))
 		})
 
 	router.all('*', (req, res) => {
-	  res.redirect(307, `https://api.servicetitan.com/v1${req.path}`)
-	  log(`307 @ api.servicetitan.com ${req.path} complete`)
+		res.redirect(307, `https://api.servicetitan.com/v1${req.path}`)
+		log(`307 @ api.servicetitan.com ${req.path} complete`)
 	})
 
 	return router
