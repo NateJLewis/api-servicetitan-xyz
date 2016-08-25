@@ -1,36 +1,38 @@
-import http from 'http';
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import initializeDb from './db';
-import middleware from './middleware';
-import api from './api';
-import config from './config.json';
+/**
+ * The contents of this file is free and unencumbered software released into the
+ * public domain. For more information, please refer to <http://unlicense.org/>
+ *
+ * @author Maxmillion McLaughlin <npm@maxmclau.com>
+ */
 
-let app = express();
-app.server = http.createServer(app);
+'use strict'
 
-// 3rd party middleware
-app.use(cors({
-	exposedHeaders: config.corsHeaders
-}));
+import debug from 'debug'
+import yaml from 'yamljs'
+import express from 'express'
+import bodyParser from 'body-parser'
+import expressHealthCheck from 'express-healthcheck'
+import expressStatusMonitor from 'express-status-monitor'
+import api from './api'
 
-app.use(bodyParser.json({
-	limit : config.bodyLimit
-}));
+let log = debug('api-servicetitan-xyz')
 
-// connect to db
-initializeDb( db => {
+let server = express()
 
-	// internal middleware
-	app.use(middleware({ config, db }));
+let apiVersion = yaml.load(`${__dirname}/./../app.yaml`).api_version
 
-	// api router
-	app.use('/api', api({ config, db }));
+server.use(bodyParser.urlencoded({ extended: true }))
+server.use(bodyParser.json())
 
-	app.server.listen(process.env.PORT || config.port);
+server.use('/', express.static(`${__dirname}/./public`));
 
-	console.log(`Started on port ${app.server.address().port}`);
-});
+server.use('/_ah', expressStatusMonitor())
+server.use('/_ah/health', expressHealthCheck())
 
-export default app;
+server.use(`/${apiVersion}`, api())
+
+let listener = server.listen(process.env.PORT || 8080, () => {
+  log(`${listener.address().port} did start server on port`)
+})
+
+export default server;
