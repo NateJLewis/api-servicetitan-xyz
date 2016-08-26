@@ -1,40 +1,22 @@
-Express & ES6 REST API Boilerplate
-==================================
+# api-servicetitan-xyz
+[![Build Status](http://img.shields.io/travis/brunoair/api-servicetitan-xyz/master.svg?style=flat-square)](https://travis-ci.org/brunoair/api-servicetitan-xyz)
+[![Dependency Status](http://img.shields.io/david/brunoair/api-servicetitan-xyz.svg?style=flat-square)](https://github.com/brunoair/api-servicetitan-xyz/blob/master/package.json)
 
-[![bitHound Score](https://www.bithound.io/github/developit/express-es6-rest-api/badges/score.svg)](https://www.bithound.io/github/developit/express-es6-rest-api)
+Extended api for go.servicetitan.com
 
-This is a straightforward boilerplate for building REST APIs with ES6 and Express.
+#### Running
 
-- ES6 support via [babel](https://babeljs.io)
-- REST resources as middleware via [resource-router-middleware](https://github.com/developit/resource-router-middleware)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
-- Body Parsing via [body-parser](https://github.com/expressjs/body-parser)
+```bash
+npm run dev
+```
+or
 
-> Tip: If you are using [Mongoose](https://github.com/Automattic/mongoose), you can automatically expose your Models as REST resources using [restful-mongoose](https://git.io/restful-mongoose).
-
-Getting Started
----------------
-
-```sh
-# clone it
-git clone git@github.com:developit/express-es6-rest-api.git
-cd express-es6-rest-api
-
-# Make it your own
-rm -rf .git && git init && npm init
-
-# Install dependencies
-npm install
-
-# Start development live-reload server
-PORT=8080 npm run dev
-
-# Start production server:
-PORT=8080 npm start
+```bash
+npm run build && npm start
 ```
 
+#### Testing
 
-License
--------
-
-MIT
+````bash
+npm test
+```
