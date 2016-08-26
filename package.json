@@ -26,10 +26,10 @@
       "no-unused-vars": 1
     }
   },
-  "homepage": "https://servicetitan.xyz",
+  "homepage": "https://api.servicetitan.xyz",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunoair/servicetitan-xyz"
+    "url": "git+https://github.com/brunoair/api-servicetitan-xyz"
   },
   "author": {
     "name": "Maxmillion McLaughlin",
