@@ -9,14 +9,24 @@ Extended api for go.servicetitan.com
 ```bash
 npm run dev
 ```
-or
-
 ```bash
 npm run build && npm start
+```
+
+#### Docker
+
+````bash
+docker build -t api-servicetitan-xyz .
+docker run -p 8080:8080 api-servicetitan-xyz
 ```
 
 #### Testing
 
 ````bash
 npm test
+```
+
+#### Deploy
+````bash
+gcloud app deploy
 ```
